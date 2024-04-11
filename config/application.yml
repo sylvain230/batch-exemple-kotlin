@@ -1,9 +1,0 @@
-spring:
-  batch:
-    jdbc:
-      initialize-schema: ALWAYS
-
-input:
-  file:
-    row:
-      separator: ;

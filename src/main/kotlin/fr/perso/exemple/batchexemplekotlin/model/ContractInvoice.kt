@@ -1,5 +1,5 @@
 package fr.perso.exemple.batchexemplekotlin.model
 
-class ContractInvoice(
-    val contractId: String,
-    var invoiceId: String)
+data class ContractInvoice(
+    var numContract: String? = null,
+    var numInvoice: String? = null)

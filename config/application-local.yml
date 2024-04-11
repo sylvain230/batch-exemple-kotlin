@@ -1,0 +1,41 @@
+spring:
+  batch:
+    jdbc:
+      initialize-schema: ALWAYS
+
+batch:
+  datasource:
+    example:
+      username: postgres
+      password: password
+      jdbc-url: jdbc:postgresql://localhost:5433/formation_spring_batch
+      driver-class-name: org.postgresql.Driver
+
+input:
+  file:
+    row:
+      separator: ;
+
+output:
+  step-one:
+    generate:
+      dir: "./output"
+      error:
+        file-pattern: '%s-error-step-one.csv'
+      success:
+        file-pattern: '%s-success-step-one.csv'
+
+logging:
+  file:
+    name: logs/batch-exemple-kotlin.log
+  pattern.file: "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX, Europe/Paris}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m - %mdc%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+  charset.file: UTF-8 # spring default
+  logback:
+    file.appender.enabled: false # default
+    rollingpolicy:
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz" # spring default
+      clean-history-on-start: false # spring default
+      max-file-size: 10MB # spring default
+      total-size-cap: 0 # spring default
+      max-history: 7 # spring default, 7 days of history
+    level.fr.perso: 'INFO'

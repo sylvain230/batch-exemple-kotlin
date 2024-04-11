@@ -13,45 +13,44 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
-@Configuration
+//@Configuration
 class StepConfiguration(
     @Value("\${input.file.row.separator}")
     private val separator: String
 ) {
 
-    @Bean
-    fun stepExemple(
-        transactionManager: PlatformTransactionManager,
-        jobRepository: JobRepository
-    ): Step {
-        return StepBuilder("monStep",jobRepository)
-            .chunk<ContractInvoice, ContractInvoice>(10, transactionManager)
-            .reader {
-
-                val reader: FlatFileItemReader<ContractInvoice> = FlatFileItemReader<ContractInvoice>()
-                reader.setLineMapper(DefaultLineMapper())
-                reader.setLinesToSkip(1)
-
-                val lineMapper: DefaultLineMapper<ContractInvoice> = DefaultLineMapper()
-                val delimitedLineTokenizer = DelimitedLineTokenizer(separator)
-
-                lineMapper.setLineTokenizer(delimitedLineTokenizer)
-                lineMapper.setFieldSetMapper{
-                    ContractInvoice(
-                        it.readString(0),
-                        it.readString(1)
-                    )
-                }
-
-                reader.read()
-            }
-            .processor {
-                it.invoiceId = "nouveau numéro ${it.invoiceId}"
-                it
-            }
-            .writer {
-                FlatFileItemWriterBuilder<ContractInvoice>().build()
-            }
-            .build()
-    }
+//    @Bean
+//    fun stepExemple(
+//        transactionManager: PlatformTransactionManager,
+//        jobRepository: JobRepository
+//    ): Step {
+//        return StepBuilder("monStep",jobRepository)
+//            .chunk<ContractInvoice, ContractInvoice>(10, transactionManager)
+//            .reader {
+//                val reader: FlatFileItemReader<ContractInvoice> = FlatFileItemReader<ContractInvoice>()
+//                reader.setLineMapper(DefaultLineMapper())
+//                reader.setLinesToSkip(1)
+//
+//                val lineMapper: DefaultLineMapper<ContractInvoice> = DefaultLineMapper()
+//                val delimitedLineTokenizer = DelimitedLineTokenizer(separator)
+//
+//                lineMapper.setLineTokenizer(delimitedLineTokenizer)
+//                lineMapper.setFieldSetMapper{
+//                    ContractInvoice(
+//                        it.readString(0),
+//                        it.readString(1)
+//                    )
+//                }
+//
+//                reader.read()
+//            }
+//            .processor {
+//                it.invoiceId = "nouveau numéro ${it.invoiceId}"
+//                it
+//            }
+//            .writer {
+//                FlatFileItemWriterBuilder<ContractInvoice>().build()
+//            }
+//            .build()
+//    }
 }

@@ -30,6 +30,9 @@ dependencies {
 	// Log
 	implementation("io.github.microutils:kotlin-logging-jvm:$kotlinLogVersion")
 
+	implementation("org.hsqldb:hsqldb:2.7.2")
+	implementation("org.postgresql:postgresql:42.7.3")
+
 }
 
 tasks.withType<KotlinCompile> {

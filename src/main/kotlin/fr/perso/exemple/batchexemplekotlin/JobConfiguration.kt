@@ -9,23 +9,30 @@ import org.springframework.batch.core.repository.JobRepository
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-
-
-private val log = KotlinLogging.logger {  }
+import org.springframework.jdbc.support.JdbcTransactionManager
+import javax.sql.DataSource
 
 @EnableBatchProcessing
 @Configuration
 class JobConfiguration  (
-    private val jobRepository: JobRepository
+    val jobListener: JobListener
 ) {
+
+    @Bean
+    fun transactionManager(dataSource: DataSource): JdbcTransactionManager? {
+        return JdbcTransactionManager(dataSource)
+    }
 
     @Bean
     fun job(
         @Qualifier("stepExampleOne") stepExampleUn: Step,
-        @Qualifier("stepExampleTwo") stepExampleDeux: Step): Job {
+        jobRepository: JobRepository
+//        @Qualifier("stepExampleTwo") stepExampleDeux: Step
+    ): Job {
         return JobBuilder("myJob", jobRepository)
             .start(stepExampleUn)
-            .next(stepExampleDeux)
+//            .next(stepExampleDeux)
+            .listener(jobListener)
             .build()
     }
 }

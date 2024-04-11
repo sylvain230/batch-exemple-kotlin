@@ -2,9 +2,11 @@ package fr.perso.exemple.batchexemplekotlin.stepexampleone.processor
 
 import fr.perso.exemple.batchexemplekotlin.model.ContractInvoice
 import org.springframework.batch.item.ItemProcessor
+import org.springframework.stereotype.Component
 
-class StepExampleOneItemProcessor : ItemProcessor<ContractInvoice, String> {
-    override fun process(item: ContractInvoice): String {
-        return item.contractId + item.invoiceId
+@Component
+class StepExampleOneItemProcessor : ItemProcessor<ContractInvoice, ContractInvoice> {
+    override fun process(item: ContractInvoice): ContractInvoice {
+        return item
     }
 }
