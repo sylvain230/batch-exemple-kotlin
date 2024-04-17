@@ -25,22 +25,35 @@ private val FORMATTER = DateTimeFormatterBuilder()
 @Configuration
 class ResourceConfiguration {
 
-    private fun getResource(outputDir: String, successFilePattern: String, s: String): WritableResource {
-        val outputFile = File(
-            outputDir, String.format(
-                successFilePattern,
-                LocalDateTime.now().format(FORMATTER)
-            )
-        )
-        log.info { "$s will be written to ${outputFile.absolutePath}" }
-        return FileSystemResource(outputFile)
+    @Bean
+    fun outputResourceStepOne(
+        @Value("\${output.step-one.dir}") outputDir: String,
+        @Value("\${output.step-one.name}") name: String
+    ): WritableResource {
+        return getResource(outputDir, name, "Output stepOne Files")
     }
 
     @Bean
-    fun outputResourceStepOne(
-        @Value("\${output.step-one.generate.dir}") outputDir: String,
-        @Value("\${output.step-one.generate.success.file-pattern}") successFilePattern: String
+    fun inputResourceStepTwo(
+        @Value("\${input.step-two.dir}") outputDir: String,
+        @Value("\${input.step-two.name}") name: String
     ): WritableResource {
-        return getResource(outputDir, successFilePattern, "Output stepOne Files")
+        return getResource(outputDir, name, "Input stepTwo Files")
+    }
+
+    @Bean
+    fun outputResourceStepTwo(
+        @Value("\${output.step-two.dir}") outputDir: String,
+        @Value("\${output.step-two.name}") name: String
+    ): WritableResource {
+        return getResource(outputDir, name, "Output stepTwo Files")
+    }
+
+    private fun getResource(outputDir: String, name: String, infos: String): WritableResource {
+        val outputFile = File(
+            outputDir, String.format(name)
+        )
+        log.info { "$name of $infos will be written to ${outputFile.absolutePath}" }
+        return FileSystemResource(outputFile)
     }
 }

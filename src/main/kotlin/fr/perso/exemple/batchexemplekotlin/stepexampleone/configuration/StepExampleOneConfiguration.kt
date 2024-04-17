@@ -38,7 +38,7 @@ class StepExampleOneConfiguration {
         stepListener: StepExampleListener,
     ) : Step {
         return StepBuilder("stepExampleOne", jobRepository)
-            .chunk<ContractInvoice, ContractInvoice> (10, transactionManager)
+            .chunk<ContractInvoice, ContractInvoice> (2, transactionManager)
             .listener(stepListener)
             .reader(itemReaderCustom)
             .processor(compositeItemProcessor)
@@ -75,6 +75,9 @@ class StepExampleOneConfiguration {
 
         return FlatFileItemWriterBuilder<ContractInvoice>()
             .name("itemWriterStepOne")
+            .headerCallback {
+                it.write("contract_id,invoice_id")
+            }
             .resource(outputResourceStepOne)
             .lineAggregator(delimitedLineAggregator)
             .build()

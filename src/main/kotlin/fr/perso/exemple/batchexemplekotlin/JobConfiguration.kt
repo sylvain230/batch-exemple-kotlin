@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.support.JdbcTransactionManager
 import javax.sql.DataSource
-
 @EnableBatchProcessing
 @Configuration
 class JobConfiguration  (
@@ -26,13 +25,14 @@ class JobConfiguration  (
     @Bean
     fun job(
         @Qualifier("stepExampleOne") stepExampleUn: Step,
-        jobRepository: JobRepository
-//        @Qualifier("stepExampleTwo") stepExampleDeux: Step
+        @Qualifier("stepExampleTwo") stepExampleDeux: Step,
+        jobRepository: JobRepository,
     ): Job {
         return JobBuilder("myJob", jobRepository)
             .start(stepExampleUn)
-//            .next(stepExampleDeux)
+            .next(stepExampleDeux)
             .listener(jobListener)
             .build()
     }
 }
+

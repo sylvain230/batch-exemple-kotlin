@@ -15,15 +15,17 @@ input:
   file:
     row:
       separator: ;
+  step-two:
+    dir: "./output"
+    name: "outputStepOne.csv"
 
 output:
   step-one:
-    generate:
-      dir: "./output"
-      error:
-        file-pattern: '%s-error-step-one.csv'
-      success:
-        file-pattern: '%s-success-step-one.csv'
+    dir: "./output"
+    name: "outputStepOne.csv"
+  step-two:
+    dir: "./output"
+    name: "outputStepTwo.xml"
 
 logging:
   file:

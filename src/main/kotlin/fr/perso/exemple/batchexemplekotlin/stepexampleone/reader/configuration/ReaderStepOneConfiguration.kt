@@ -38,10 +38,6 @@ class ReaderStepOneConfiguration(
         // On ajoute les readers dans la map.
         // Ils vont être lu par ordre alphabétique de nameReader.
         // Le nameReader est défini dans la méthode build() du PersoBatchJdbcCursorItemReaderBuilder.
-
-        // On ajoute les readers dans la map.
-        // Ils vont être lu par ordre alphabétique de nameReader.
-        // Le nameReader est défini dans la méthode build() du PersoBatchJdbcCursorItemReaderBuilder.
         map[readerExampleOneContract()] = populateContractInvoiceWithContractDto
         map[readerExampleOneInvoice()] = populateContractInvoiceWithInvoiceDto
 

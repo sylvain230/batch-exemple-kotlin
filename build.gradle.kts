@@ -33,6 +33,10 @@ dependencies {
 	implementation("org.hsqldb:hsqldb:2.7.2")
 	implementation("org.postgresql:postgresql:42.7.3")
 
+	implementation("com.thoughtworks.xstream:xstream:1.4.20")
+	implementation("org.springframework:spring-oxm:6.1.6")
+
+
 }
 
 tasks.withType<KotlinCompile> {
