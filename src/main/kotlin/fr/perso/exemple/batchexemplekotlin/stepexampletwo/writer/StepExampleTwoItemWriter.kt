@@ -16,7 +16,7 @@ class StepExampleTwoItemWriter(
 
     override fun afterPropertiesSet() {
         name = "WriterStepTwo"
-        rootTagName = "contractInvoice"
+        rootTagName = "RootcontractInvoice"
         setResource(outputResourceStepTwo)
         setMarshaller(createContractInvoiceMarshaller())
         setOverwriteOutput(true)
@@ -26,8 +26,8 @@ class StepExampleTwoItemWriter(
         val marshaller = XStreamMarshaller()
         val aliases = mutableMapOf(
             Pair("contractInvoice", ContractInvoice::class.java),
-            Pair("numInvoice", String::class.java),
-            Pair("numContract", String::class.java),
+//            Pair("numInvoice", String::class.java),
+//            Pair("numContract", String::class.java),
         )
         marshaller.setAliases(aliases)
 
